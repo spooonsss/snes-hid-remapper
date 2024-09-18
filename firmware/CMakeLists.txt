@@ -177,3 +177,36 @@ target_link_libraries(remapper_serial
     tinyusb_board
 )
 pico_add_extra_outputs(remapper_serial)
+
+
+add_executable(remapper_snes
+    src/main.cc
+    src/remapper.cc
+    src/remapper_snes.cc
+    src/crc.cc
+    src/descriptor_parser.cc
+    src/tinyusb_stuff.cc
+    src/our_descriptor.cc
+    src/globals.cc
+    src/config.cc
+    src/quirks.cc
+    src/interval_override.cc
+    src/tick.cc
+    src/activity_led.cc
+    src/ps_auth.cc
+)
+pico_generate_pio_header(remapper_snes ${CMAKE_CURRENT_LIST_DIR}/src/snes_shift_register.pio)
+pico_add_extra_outputs(remapper_snes)
+target_include_directories(remapper_snes PRIVATE
+    src
+    src/tusb_config_device
+)
+target_link_libraries(remapper_snes
+    pico_stdlib
+    pico_unique_id
+    hardware_flash
+    hardware_pio
+    tinyusb_device
+    tinyusb_board
+)
+pico_add_extra_outputs(remapper_snes)

@@ -238,9 +238,9 @@ int main() {
     parse_our_descriptor();
     set_mapping_from_config();
     board_init();
+    stdio_init_all();
     extra_init();
     tusb_init();
-    stdio_init_all();
 
     tud_sof_isr_set(sof_handler);
 
