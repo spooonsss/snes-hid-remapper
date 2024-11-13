@@ -1,0 +1,3 @@
+*.lck
+snes_rp2040-backups/
+fp-info-cache
