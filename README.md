@@ -6,12 +6,12 @@ This is a SNES controller mod for HID Remapper. Basically a SNES Controller->USB
 
 snes_rp2040_board/ contains the KiCAD project for the board. Components are available from the usual suppliers, except the SNES controller socket can be found on Amazon/EBay/AliExpress. Alternatively, you use a cut extension cable. Don't forget to buy the DIP headers if your Pico did not come with any. Note that some Picos (like the ones I bought from AliExpress) come with a micro-USB connector instead of a USB C, so choose according to your preference.
 
-BOM:
-J1 snes_controller_socket
-C1,C2,C3 0603 0.1uF
-IC1,IC2,IC3 SN74LV1T34DBVR
-J2 PICO+headers
-R1 0603 100k
+BOM:  
+J1 snes_controller_socket  
+C1,C2,C3 0603 0.1uF  
+IC1,IC2,IC3 SN74LV1T34DBVR  
+J2 PICO+headers  
+R1 0603 100k  
 
 Do not populate J3, IC4, or R2.
 
@@ -21,7 +21,7 @@ After the board is manufactured, flash the firmware by holding down the BOOTSEL 
 
 https://gamepadviewer.com/ is useful for showing the inputs received.
 
-To compile: add `#include <cstdint>`  to firmware/pico-sdk/tools/pioasm/pio_disassembler.h
+To compile: add `#include <cstdint>`  to `firmware/pico-sdk/tools/pioasm/pio_disassembler.h`
 
 Performance: the SNES controller is read about 4200 times per second to minimize input delay. I don't have a measurement for end-to-end delay.
 
