@@ -1,3 +1,32 @@
+# SNES controller HID Remapper
+
+This is a SNES controller mod for HID Remapper. Basically a SNES Controller->USB gamepad converter. There are two parts: the hardware board that is installed like an arduino shield to the Raspberry Pi Pico, and the modified firmware.
+
+## SNES controller board
+
+snes_rp2040_board/ contains the KiCAD project for the board. Components are available from the usual suppliers, except the SNES controller socket can be found on Amazon/EBay/AliExpress. Alternatively, you use a cut extension cable. Don't forget to buy the DIP headers if your Pico did not come with any. Note that some Picos (like the ones I bought from AliExpress) come with a micro-USB connector instead of a USB C, so choose according to your preference.
+
+BOM:
+J1 snes_controller_socket
+C1,C2,C3 0603 0.1uF
+IC1,IC2,IC3 SN74LV1T34DBVR
+J2 PICO+headers
+R1 0603 100k
+
+Do not populate J3, IC4, or R2.
+
+I've used OSHPark to manufacture the board. OSHPark will take a KiCAD PCB file directly. Note the SNES board SMT components face the PICO, and the front side of the PICO (with the CPU, LED and button) faces away from the SNES board. The easiest order of soldering: SNES board SMT components, SNES board DIP headers, SNES board controller socket, then PICO DIP headers.
+
+After the board is manufactured, flash the firmware by holding down the BOOTSEL button while plugging in the USB and copying `remapper_snes.uf2` to `D:\` (or whatever drive letter was chosen). Then use Chrome: https://www.jfedor.org/hid-remapper-config/v14 Open device. Actions> Import JSON> `snes-hid-remapper-config.json` to load the example configuration.
+
+https://gamepadviewer.com/ is useful for showing the inputs received.
+
+To compile: add `#include <cstdint>`  to firmware/pico-sdk/tools/pioasm/pio_disassembler.h
+
+Performance: the SNES controller is read about 4200 times per second to minimize input delay. I don't have a measurement for end-to-end delay.
+
+# Original README follows:
+
 # HID Remapper
 
 This is a configurable USB dongle that allows you to remap inputs from mice, keyboards and other devices. It works completely in hardware and requires no software running on the computer during normal use.
